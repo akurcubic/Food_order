@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+
+  <div *ngIf="errorMessage !== ''" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Message</th>
+      <th>Operations</th>
+      <th>Order ID</th>
+      <th>User ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let error of errors || []">
+      <td>{{ error.id }}</td>
+      <td>{{ error.date | date:'dd.MM.yyyy HH:mm' }}</td>
+      <td>{{ error.message }}</td>
+      <td>{{ error.operations }}</td>
+      <td>{{ error.order?.id }}</td>
+      <td>{{ error.user?.id }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-primary mx-2" (click)="previousPage()" [disabled]="page === 0">
+      ←
+    </button>
+    <button class="btn btn-primary mx-2" (click)="nextPage()">
+      →
+    </button>
+  </div>
+
+</div>

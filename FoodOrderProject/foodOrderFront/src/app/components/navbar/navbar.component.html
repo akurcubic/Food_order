@@ -1,0 +1,22 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a [routerLink]="'/home'" class="navbar-brand">Home</a>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a [routerLink]="'/allUsers'" class="nav-link active nav-links" aria-current="page">All Users</a>
+          <a *ngIf="canCreateUsers" [routerLink]="'/addUser'" class="nav-link active nav-links" aria-current="page">Add User</a>
+          <a *ngIf="canSearchOrders" [routerLink]="'/search'" class="nav-link active nav-links" aria-current="page">Search orders</a>
+          <a *ngIf="canCreateOrder" [routerLink]="'/createOrder'" class="nav-link active nav-links" aria-current="page">Create order</a>
+          <a *ngIf="canScheduleOrder" [routerLink]="'/scheduleOrder'" class="nav-link active nav-links" aria-current="page">Schedule order</a>
+          <a [routerLink]="'/errors'" class="nav-link active nav-links" aria-current="page">Errors</a>
+
+        </div>
+        <div class="navbar-nav">
+          <span>Welcome, {{firstName}}</span>
+          <button class="btn btn-outline-primary ms-2" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

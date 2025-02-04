@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+  <h2>Schedule order</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Dishes</label>
+    <div *ngFor="let dish of dishes">
+      <input
+        type="checkbox"
+        [value]="dish"
+        (change)="onDishChange(dish, $event)"
+      /> {{ dish }}
+    </div>
+  </div>
+
+  <div class="row" style="gap: 10px">
+
+    <input
+      id="startDate"
+      type="date"
+      class="form-control me-2"
+      [(ngModel)]="selectedDate"
+    />
+
+    <input type="text" id="timeInput" class="form-control" placeholder="HH:MM:SS"  [(ngModel)]="selectedTime">
+  </div>
+
+
+  <button class="btn btn-primary mt-3" (click)="scheduleOrder()">Schedule order</button>
+</div>
+

@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>E-mail</th>
+      <th>Permissions</th>
+      <th *ngIf="canDeleteUser">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>
+        <a
+          *ngIf="canEditUser"
+          [routerLink]="['/editUser/'+user.id]"
+          class="text-primary text-decoration-underline">
+          {{ user.email }}
+        </a>
+        <span *ngIf="!canEditUser">{{ user.email }}</span>
+      </td>
+      <td>
+          <span *ngFor="let permission of user.permissions; let isLast = last">
+            {{ permission.name }}<span *ngIf="!isLast">, </span>
+          </span>
+      </td>
+      <td *ngIf="canDeleteUser">
+        <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)" >Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

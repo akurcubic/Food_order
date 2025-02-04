@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+  <h2>Create Order</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Dishes</label>
+    <div *ngFor="let dish of dishes">
+      <input
+        type="checkbox"
+        [value]="dish"
+        (change)="onDishChange(dish, $event)"
+      /> {{ dish }}
+    </div>
+  </div>
+
+  <button class="btn btn-primary mt-3" (click)="createOrder()">Create Order</button>
+</div>
+
+

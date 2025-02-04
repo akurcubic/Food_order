@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+
+  <div class="d-flex align-items-center mb-3" style="gap: 10px">
+    <label class="me-2" style="white-space: nowrap;">Search by:</label>
+
+    <select class="form-select me-2" [(ngModel)]="searchCriteria">
+      <option *ngIf="canTrackOrder" value="STATUS">STATUS</option>
+      <option value="DATE">DATE</option>
+      <option *ngIf="userRole === 'ADMIN'" value="USER ID">USER ID</option>
+    </select>
+
+    <ng-container *ngIf="searchCriteria === 'DATE'">
+      <label for="startDate" class="me-2">From:</label>
+      <input
+        id="startDate"
+        type="date"
+        class="form-control me-2"
+        [(ngModel)]="startDate"
+      />
+
+      <label for="endDate" class="me-2">To:</label>
+      <input
+        id="endDate"
+        type="date"
+        class="form-control me-2"
+        [(ngModel)]="endDate"
+      />
+    </ng-container>
+
+    <ng-container *ngIf="searchCriteria !== 'DATE'">
+      <input
+        type="text"
+        class="form-control me-2"
+        placeholder="Enter search value..."
+        [(ngModel)]="searchValue"
+      />
+    </ng-container>
+
+    <button class="btn btn-primary" (click)="searchOrders()">Search</button>
+    <button class="btn btn-primary" style="white-space: nowrap;" (click)="loadOrders()">Show all</button>
+  </div>
+
+  <div *ngIf="errorMessage !== ''" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Active</th>
+      <th>Created date</th>
+      <th>Scheduled date</th>
+      <th *ngIf="canTrackOrder">Status</th>
+      <th>User ID</th>
+      <th>User Name</th>
+      <th *ngIf="canCancelOrder">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.id }}</td>
+      <td>{{ order.active ? 'ACTIVE' : 'INACTIVE' }}</td>
+      <td>{{ order.createdDate | date:'dd.MM.yyyy HH:mm' }}</td>
+      <td>{{ order.scheduledTime }}</td>
+      <td *ngIf="canTrackOrder">{{ order.orderStatus }}</td>
+      <td>{{ order.user.id }}</td>
+      <td>{{ order.user.firstName }}</td>
+      <td *ngIf="canCancelOrder">
+        <button class="btn btn-danger btn-sm" (click)="cancelOrder(order.id)" >Cancel</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
